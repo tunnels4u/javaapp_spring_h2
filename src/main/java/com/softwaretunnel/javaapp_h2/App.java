@@ -66,12 +66,7 @@ public class App {
 		this.jl = new JLabel();
 		this.jl.setBounds(50, 50, 1000, 20);
 		this.jl.setForeground(Color.WHITE);
-
-//		this.createDBButton = createDatabaseButton();
-//		this.frame.add(createDBButton);
-//		this.dropSchemaButton = dropSchemaButton();
-//		this.createSchemaButton = createSchemaButton();
-//		this.dropDBButton = dropDBButton();
+		
 		this.addEmployeeButton = getAddButton();
 
 		this.jtable = createTable(jl);
@@ -81,9 +76,6 @@ public class App {
 		this.frame.add(jScrollPane);
 
 		this.frame.add(addEmployeeButton);
-//		this.frame.add(createSchemaButton);
-//		this.frame.add(dropDBButton);
-//		this.frame.add(dropSchemaButton);
 		this.frame.add(jl);
 		this.frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		this.frame.addWindowListener(getWindowListener());
@@ -95,33 +87,10 @@ public class App {
 	}
 
 	public void renderFrameAndData() {
-		try {
-//			if (H2Interaction.doesH2DBExists()) {
-//				createDBButton.setVisible(false);
-//				dropDBButton.setVisible(true);
-//				if (H2Interaction.getH2Interaction().doesSchemaExists()) {
-//					dropSchemaButton.setVisible(true);
-//					createSchemaButton.setVisible(false);
-//					addEmployeeButton.setVisible(true);
-//					schemaExists = true;
-//					refreshModel();
-//				} else {
-//					dropSchemaButton.setVisible(false);
-//					createSchemaButton.setVisible(true);
-//					addEmployeeButton.setVisible(false);
-//				}
-//			} else {
-//				createDBButton.setVisible(true);
-//				dropDBButton.setVisible(false);
-//				dropSchemaButton.setVisible(false);
-//				createSchemaButton.setVisible(false);
-//				addEmployeeButton.setVisible(false);
-//			}
-			
+		try {			
 			addEmployeeButton.setVisible(true);
 			schemaExists = true;
 			refreshModel();
-
 		} catch (Exception e) {
 			jl.setText(ErrorMessage.FRAME_RENDERING_FAILED.message);
 		}
@@ -130,75 +99,6 @@ public class App {
 	public void refreshFrame() {
 		frame.repaint();
 	}
-
-//	public JButton createDatabaseButton() {
-//		JButton createDBButton = new JButton("Create H2 Database");
-//		createDBButton.setBounds(50, 100, 150, 30);
-//		createDBButton.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				if (createDatabase()) {
-//					createSchemaButton.setVisible(true);
-//					createDBButton.setVisible(false);
-//					dropDBButton.setVisible(true);
-//				} else {
-//					createDBButton.setVisible(true);
-//				}
-//			}
-//		});
-//		return createDBButton;
-//	}
-//
-//	public JButton createSchemaButton() {
-//		JButton schemaButton = new JButton("Create Database Schema ");
-//		schemaButton.setBounds(50, 150, 200, 30);
-//		schemaButton.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				if (createSchema()) {
-//					schemaButton.setVisible(false);
-//					dropSchemaButton.setVisible(true);
-//					addEmployeeButton.setVisible(true);
-//					schemaExists = true;
-//				}
-//			}
-//		});
-//		return schemaButton;
-//	}
-//
-//	public JButton dropSchemaButton() {
-//		JButton dropSchemaButton = new JButton("Drop Database Schema ");
-//		dropSchemaButton.setBounds(50, 150, 200, 30);
-//		dropSchemaButton.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				if (dropSchema()) {
-//					dropSchemaButton.setVisible(false);
-//					createSchemaButton.setVisible(true);
-//					addEmployeeButton.setVisible(false);
-//					schemaExists = false;
-//					refreshModel();
-//				}
-//			}
-//		});
-//		return dropSchemaButton;
-//	}
-//
-//	public JButton dropDBButton() {
-//		JButton dropDBButton = new JButton("Drop Database");
-//		dropDBButton.setBounds(50, 100, 150, 30);
-//		dropDBButton.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				if (dropDB()) {
-//					dropDBButton.setVisible(false);
-//					createDBButton.setVisible(true);
-//					dropSchemaButton.setVisible(false);
-//					createSchemaButton.setVisible(false);
-//					addEmployeeButton.setVisible(false);
-//					schemaExists = false;
-//					refreshModel();
-//				}
-//			}
-//		});
-//		return dropDBButton;
-//	}
 
 	public JButton getRemoveButton() {
 		JButton deleteRowButton = new JButton("Delete");
@@ -246,50 +146,6 @@ public class App {
 		return addRowButton;
 
 	}
-
-//	public boolean createDatabase() {
-//		try {
-//			H2Interaction.getH2Interaction();
-//			jl.setText("Database Created at :: " + resourceBundle.getString("H2_PATH"));
-//			return true;
-//		} catch (Exception exception) {
-//			jl.setText(ErrorMessage.DB_CREATION_FAILED.message);
-//			return false;
-//		}
-//	}
-
-//	public boolean createSchema() {
-//		try {
-//			H2Interaction.getH2Interaction().createSchema();
-//			jl.setText("Schema Created with file ::" + resourceBundle.getString("H2_SCHEMA"));
-//			return true;
-//		} catch (Exception exception) {
-//			jl.setText(ErrorMessage.SCHEMA_CREATION_FAILED.message);
-//			return false;
-//		}
-//	}
-
-//	public boolean dropSchema() {
-//		try {
-//			H2Interaction.getH2Interaction().dropSchema();
-//			jl.setText(resourceBundle.getString("SCHEMA_NAME") + " Schema dropped ");
-//			return true;
-//		} catch (Exception exception) {
-//			jl.setText(ErrorMessage.SCHEMA_DROP_FAILED.message);
-//			return false;
-//		}
-//	}
-
-//	public boolean dropDB() {
-//		try {
-//			H2Interaction.getH2Interaction().dropDatabase();
-//			jl.setText("Database dropped ");
-//			return true;
-//		} catch (Exception exception) {
-//			jl.setText(ErrorMessage.DATABASE_DROP_FAILED.message);
-//			return false;
-//		}
-//	}
 
 	/**
 	 * This code snippet was taken from

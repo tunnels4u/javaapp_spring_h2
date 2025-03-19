@@ -10,14 +10,13 @@ import com.softwaretunnel.javaapp_h2.service.EmployeeService;
 @SpringBootApplication
 public class SpringBootApp {
 
-  public static void main(String[] args) {
-    ConfigurableApplicationContext configurableApplicationContext=SpringApplication.run(SpringBootApp.class, args);
-    
-    // execute swing
-    System.setProperty("java.awt.headless", "false");
-    EmployeeService employeeService=configurableApplicationContext.getBean(EmployeeService.class);
-    new App().createGUI(employeeService);
-  }
+	public static void main(String[] args) {
+		ConfigurableApplicationContext configurableApplicationContext = SpringApplication.run(SpringBootApp.class,
+				args);
 
-
+		// execute swing
+		System.setProperty("java.awt.headless", "false");
+		EmployeeService employeeService = configurableApplicationContext.getBean(EmployeeService.class);
+		new App().createGUI(employeeService);
+	}
 }

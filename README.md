@@ -26,3 +26,5 @@ Please also have a look at the license file.
 - ![Save Employee](./java_h2_demo/save.png?raw=true "Save Employee")
 - ![Edit Record](./java_h2_demo/edit_record.png?raw=true "Edit Record")
 - ![Delete Record](./java_h2_demo/delete_record.png?raw=true "Delete Record")
+- ![Deleted Record](./java_h2_demo/record_deleted.png?raw=true "Delete Record")
+

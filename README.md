@@ -21,14 +21,8 @@ Please also have a look at the license file.
 
 **Demo**
 
-- ![Create Database](./java_h2_demo/create_database.png?raw=true "Create Database")
-- ![Create Schema](./java_h2_demo/create_schema.png?raw=true "Create Schema")
+- ![Demo](./java_h2_demo/demo.png?raw=true "Demo")
 - ![Add Employee](./java_h2_demo/add_employee.png?raw=true "Add Employee")
-- ![Type Name](./java_h2_demo/type_name.png?raw=true "Type Name")
 - ![Save Employee](./java_h2_demo/save.png?raw=true "Save Employee")
 - ![Edit Record](./java_h2_demo/edit_record.png?raw=true "Edit Record")
-- ![Save Employee](./java_h2_demo/save.png?raw=true "Save Employee")
 - ![Delete Record](./java_h2_demo/delete_record.png?raw=true "Delete Record")
-- ![Drop Schema](./java_h2_demo/drop_schema.png?raw=true "Drop Schema")
-- ![Drop Database](./java_h2_demo/drop_database.png?raw=true "Drop Database")
-- ![Dropped Database](./java_h2_demo/database_dropped.png?raw=true "Dropped Database")

@@ -2,11 +2,13 @@ package com.softwaretunnel.javaapp_h2.config;
 
 import javax.sql.DataSource;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.jdbc.datasource.embedded.ConnectionProperties;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseConfigurer;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
@@ -16,35 +18,68 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import jakarta.persistence.EntityManagerFactory;
 
 @Configuration
-@EnableJpaRepositories(basePackages="com.softwaretunnel.javaapp_h2.repository")
+@EnableJpaRepositories(basePackages = "com.softwaretunnel.javaapp_h2.repository")
 @EnableTransactionManagement
 class ApplicationConfig {
 
-  @Bean
-  public DataSource dataSource() {
+	@Value("${spring.datasource.url}")
+	private String datasourceUrl;
 
-    EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
-    return builder.setType(EmbeddedDatabaseType.H2).build();
-  }
+	@Value("${spring.datasource.driverClassName}")
+	private String driverClass;
 
-  @Bean
-  public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
+	@Value("${spring.datasource.username}")
+	private String userName;
 
-    HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
-    vendorAdapter.setGenerateDdl(true);
+	@Value("${spring.datasource.password}")
+	private String password;
 
-    LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
-    factory.setJpaVendorAdapter(vendorAdapter);
-    factory.setPackagesToScan("com.softwaretunnel.javaapp_h2.persistance.entity");
-    factory.setDataSource(dataSource());
-    return factory;
-  }
+	@Bean
+	public DataSource dataSource() {
 
-  @Bean
-  public PlatformTransactionManager transactionManager(EntityManagerFactory entityManagerFactory) {
+		EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
+		EmbeddedDatabaseConfigurer embeddedDatabaseConfigurer = new EmbeddedDatabaseConfigurer() {
 
-    JpaTransactionManager txManager = new JpaTransactionManager();
-    txManager.setEntityManagerFactory(entityManagerFactory);
-    return txManager;
-  }
+			@Override
+			public void shutdown(DataSource dataSource, String databaseName) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void configureConnectionProperties(ConnectionProperties properties, String databaseName) {
+				properties.setUrl(datasourceUrl);
+				properties.setUsername(userName);
+				properties.setPassword(password);
+				try {
+					properties.setDriverClass((Class<? extends org.h2.Driver>) Class.forName(driverClass));
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		};
+		builder.setDatabaseConfigurer(embeddedDatabaseConfigurer);
+		return builder.build();
+	}
+
+	@Bean
+	public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
+
+		HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
+		vendorAdapter.setGenerateDdl(true);
+
+		LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
+		factory.setJpaVendorAdapter(vendorAdapter);
+		factory.setPackagesToScan("com.softwaretunnel.javaapp_h2.persistance.entity");
+		factory.setDataSource(dataSource());
+		return factory;
+	}
+
+	@Bean
+	public PlatformTransactionManager transactionManager(EntityManagerFactory entityManagerFactory) {
+
+		JpaTransactionManager txManager = new JpaTransactionManager();
+		txManager.setEntityManagerFactory(entityManagerFactory);
+		return txManager;
+	}
 }
